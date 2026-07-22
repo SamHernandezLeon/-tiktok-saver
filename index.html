@@ -3,16 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TikTok Downloader & Menu</title>
+    <title>TikTok Downloader</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: #0f172a;
@@ -24,8 +20,6 @@
             min-height: 100vh;
             padding: 20px 20px 100px 20px;
         }
-        
-        /* Tarjeta principal de descargas */
         .card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(12px);
@@ -38,15 +32,8 @@
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        h2 {
-            font-size: 22px;
-            margin-bottom: 8px;
-        }
-        p {
-            font-size: 14px;
-            color: #94a3b8;
-            margin-bottom: 24px;
-        }
+        h2 { font-size: 22px; margin-bottom: 8px; }
+        p { font-size: 14px; color: #94a3b8; margin-bottom: 24px; }
         input {
             width: 100%;
             padding: 14px;
@@ -58,9 +45,7 @@
             font-size: 16px;
             outline: none;
         }
-        input:focus {
-            border-color: #0ea5e9;
-        }
+        input:focus { border-color: #0ea5e9; }
         button {
             background: #0ea5e9;
             color: white;
@@ -73,15 +58,9 @@
             font-weight: 600;
             transition: background 0.3s;
         }
-        button:active {
-            transform: scale(0.98);
-        }
-        button:hover {
-            background: #0284c7;
-        }
-        #resultado {
-            margin-top: 20px;
-        }
+        button:active { transform: scale(0.98); }
+        button:hover { background: #0284c7; }
+        #resultado { margin-top: 20px; }
         .download-btn {
             display: block;
             background: #22c55e;
@@ -92,20 +71,13 @@
             font-weight: 600;
             margin-top: 10px;
             box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+            cursor: pointer;
         }
-        .download-btn:hover {
-            background: #16a34a;
-        }
-        .loader {
-            color: #38bdf8;
-            font-size: 14px;
-        }
-        .error {
-            color: #ef4444;
-            font-size: 14px;
-        }
+        .download-btn:hover { background: #16a34a; }
+        .loader { color: #38bdf8; font-size: 14px; }
+        .error { color: #ef4444; font-size: 14px; }
 
-        /* Menú Flotante Estilo iOS (Inspirado en tu captura) */
+        /* Menú Flotante */
         .menu-container {
             position: fixed;
             bottom: 25px;
@@ -132,16 +104,9 @@
             border-radius: 999px;
             color: #38bdf8;
             cursor: pointer;
-            transition: 
-                width 0.45s cubic-bezier(0.22, 1, 0.36, 1), 
-                background 0.3s ease, 
-                box-shadow 0.3s ease,
-                color 0.3s ease;
+            transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease;
         }
-        .menu-item i {
-            font-size: 1.15rem;
-            min-width: 24px;
-        }
+        .menu-item i { font-size: 1.15rem; min-width: 24px; }
         .menu-label {
             opacity: 0;
             max-width: 0;
@@ -150,16 +115,11 @@
             font-size: 0.9rem;
             font-weight: 500;
             color: #ffffff;
-            transition: 
-                opacity 0.25s ease, 
-                max-width 0.45s ease, 
-                transform 0.35s ease;
+            transition: opacity 0.25s ease, max-width 0.45s ease, transform 0.35s ease;
         }
-        /* Efecto Hover / Táctil para expandir */
         .menu-item:hover, .menu-item:active {
             width: 140px;
             background: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 0 20px rgba(0, 229, 255, 0.22);
             color: #ffffff;
         }
         .menu-item:hover .menu-label, .menu-item:active .menu-label {
@@ -171,7 +131,6 @@
             background: #ffffff;
             color: #0f172a;
             width: 120px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
         }
         .menu-item.active .menu-label {
             opacity: 1;
@@ -185,7 +144,7 @@
 
     <div class="card">
         <h2>TikTok Downloader</h2>
-        <p>Pega el enlace para quitar el logo</p>
+        <p>Pega el enlace para descargar sin logo</p>
         
         <input type="text" id="urlInput" placeholder="https://vm.tiktok.com/..." autocomplete="off">
         <button onclick="descargarVideo()">Obtener sin marca</button>
@@ -194,22 +153,10 @@
     </div>
 
     <nav class="menu-container">
-        <div class="menu-item" onclick="alert('Sección de Apps')">
-            <i class="fa-solid fa-grid"></i>
-            <span class="menu-label">Apps</span>
-        </div>
-        <div class="menu-item" onclick="alert('Sección de Archivos')">
-            <i class="fa-solid fa-folder"></i>
-            <span class="menu-label">Archivos</span>
-        </div>
-        <div class="menu-item active">
-            <i class="fa-solid fa-comment"></i>
-            <span class="menu-label">TikTok</span>
-        </div>
-        <div class="menu-item" onclick="alert('Ajustes del sistema')">
-            <i class="fa-solid fa-gear"></i>
-            <span class="menu-label">Ajustes</span>
-        </div>
+        <div class="menu-item"><i class="fa-solid fa-grid"></i><span class="menu-label">Apps</span></div>
+        <div class="menu-item"><i class="fa-solid fa-folder"></i><span class="menu-label">Archivos</span></div>
+        <div class="menu-item active"><i class="fa-solid fa-comment"></i><span class="menu-label">TikTok</span></div>
+        <div class="menu-item"><i class="fa-solid fa-gear"></i><span class="menu-label">Ajustes</span></div>
     </nav>
 
     <script>
@@ -218,30 +165,44 @@
             const resultadoDiv = document.getElementById('resultado');
             
             if (!url) {
-                resultadoDiv.innerHTML = '<span class="error">Por favor ingresa un enlace válido.</span>';
+                resultadoDiv.innerHTML = '<span class="error">Ingresa un enlace válido.</span>';
                 return;
             }
 
-            resultadoDiv.innerHTML = '<span class="loader">Buscando video limpio...</span>';
+            resultadoDiv.innerHTML = '<span class="loader">Procesando descarga...</span>';
 
             try {
                 const response = await fetch(`https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`);
                 const data = await response.json();
 
                 if (data.code === 0 && data.data && data.data.play) {
-                    const videoUrl = data.data.play; 
-                    resultadoDiv.innerHTML = `
-                        <span style="color: #22c55e; font-size: 14px; display:block; margin-bottom:8px;">¡Listo para descargar!</span>
-                        <a class="download-btn" href="${videoUrl}" target="_blank">Descargar MP4</a>
-                    `;
+                    const videoUrl = data.data.play;
+                    
+                    // Forzar la descarga directa del video como archivo binario (Blob)
+                    resultadoDiv.innerHTML = '<span class="loader">Descargando al dispositivo...</span>';
+                    
+                    const videoResponse = await fetch(videoUrl);
+                    const blob = await videoResponse.blob();
+                    const blobUrl = window.URL.createObjectURL(blob);
+                    
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = blobUrl;
+                    a.download = `tiktok_${Date.now()}.mp4`;
+                    document.body.appendChild(a);
+                    a.click();
+                    
+                    window.URL.revokeObjectURL(blobUrl);
+                    document.body.removeChild(a);
+
+                    resultadoDiv.innerHTML = '<span style="color: #22c55e; font-size: 14px;">¡Descarga completada! Revisa tus descargas o archivos.</span>';
                 } else {
-                    resultadoDiv.innerHTML = '<span class="error">No se encontró el video. Revisa el enlace.</span>';
+                    resultadoDiv.innerHTML = '<span class="error">No se pudo procesar el enlace.</span>';
                 }
             } catch (error) {
-                resultadoDiv.innerHTML = '<span class="error">Error de red. Inténtalo de nuevo.</span>';
+                resultadoDiv.innerHTML = '<span class="error">Error de red o CORS en el navegador.</span>';
             }
         }
     </script>
-
 </body>
 </html>
